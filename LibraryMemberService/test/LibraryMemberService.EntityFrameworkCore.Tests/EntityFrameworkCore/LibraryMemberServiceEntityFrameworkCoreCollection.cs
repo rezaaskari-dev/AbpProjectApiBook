@@ -1,0 +1,9 @@
+﻿using Xunit;
+
+namespace LibraryMemberService.EntityFrameworkCore;
+
+[CollectionDefinition(LibraryMemberServiceTestConsts.CollectionDefinitionName)]
+public class LibraryMemberServiceEntityFrameworkCoreCollection : ICollectionFixture<LibraryMemberServiceEntityFrameworkCoreFixture>
+{
+
+}

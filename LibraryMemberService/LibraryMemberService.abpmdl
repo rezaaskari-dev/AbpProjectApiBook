@@ -1,0 +1,114 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "5.7.0",
+      "isInstalled": true,
+      "creationTime": "10/20/2026 08:50:15 +00:00"
+    },
+    "Volo.Abp.Account": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/20/2026 08:50:15 +00:00"
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/20/2026 08:50:15 +00:00"
+    },
+    "Volo.Abp.Identity": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/20/2026 08:50:15 +00:00"
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/20/2026 08:50:15 +00:00"
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/20/2026 08:50:15 +00:00"
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/20/2026 08:50:15 +00:00"
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/20/2026 08:50:15 +00:00"
+    },
+    "Volo.Abp.BlobStoring.Database": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/20/2026 08:50:15 +00:00"
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "LibraryMemberService.Application": {
+      "path": "src/LibraryMemberService.Application/LibraryMemberService.Application.abppkg",
+      "folder": "src"
+    },
+    "LibraryMemberService.Application.Tests": {
+      "path": "test/LibraryMemberService.Application.Tests/LibraryMemberService.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "LibraryMemberService.Domain.Shared": {
+      "path": "src/LibraryMemberService.Domain.Shared/LibraryMemberService.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "LibraryMemberService.Application.Contracts": {
+      "path": "src/LibraryMemberService.Application.Contracts/LibraryMemberService.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "LibraryMemberService.HttpApi": {
+      "path": "src/LibraryMemberService.HttpApi/LibraryMemberService.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "LibraryMemberService.HttpApi.Client": {
+      "path": "src/LibraryMemberService.HttpApi.Client/LibraryMemberService.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "LibraryMemberService.EntityFrameworkCore.Tests": {
+      "path": "test/LibraryMemberService.EntityFrameworkCore.Tests/LibraryMemberService.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "LibraryMemberService.EntityFrameworkCore": {
+      "path": "src/LibraryMemberService.EntityFrameworkCore/LibraryMemberService.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "LibraryMemberService.TestBase": {
+      "path": "test/LibraryMemberService.TestBase/LibraryMemberService.TestBase.abppkg",
+      "folder": "test"
+    },
+    "LibraryMemberService.Domain.Tests": {
+      "path": "test/LibraryMemberService.Domain.Tests/LibraryMemberService.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "LibraryMemberService.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/LibraryMemberService.HttpApi.Client.ConsoleTestApp/LibraryMemberService.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "LibraryMemberService.DbMigrator": {
+      "path": "src/LibraryMemberService.DbMigrator/LibraryMemberService.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "LibraryMemberService.HttpApi.Host": {
+      "path": "src/LibraryMemberService.HttpApi.Host/LibraryMemberService.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "LibraryMemberService.Domain": {
+      "path": "src/LibraryMemberService.Domain/LibraryMemberService.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}

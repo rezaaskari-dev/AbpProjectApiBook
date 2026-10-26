@@ -1,0 +1,9 @@
+﻿using LibraryMemberService.EntityFrameworkCore;
+using Xunit;
+
+namespace LibraryMemberService.EntityFrameworkCore;
+
+public class LibraryMemberServiceEntityFrameworkCoreCollectionFixtureBase : ICollectionFixture<LibraryMemberServiceEntityFrameworkCoreFixture>
+{
+
+}

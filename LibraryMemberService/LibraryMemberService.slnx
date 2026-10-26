@@ -1,0 +1,23 @@
+<Solution>
+    <Configurations>
+        <Platform Name="Any CPU" />
+    </Configurations>
+    <Folder Name="/src/">
+        <Project Path="src/LibraryMemberService.Domain/LibraryMemberService.Domain.csproj" />
+        <Project Path="src/LibraryMemberService.Application/LibraryMemberService.Application.csproj" />
+        <Project Path="src/LibraryMemberService.EntityFrameworkCore/LibraryMemberService.EntityFrameworkCore.csproj" />
+        <Project Path="src/LibraryMemberService.Domain.Shared/LibraryMemberService.Domain.Shared.csproj" />
+        <Project Path="src/LibraryMemberService.Application.Contracts/LibraryMemberService.Application.Contracts.csproj" />
+        <Project Path="src/LibraryMemberService.HttpApi/LibraryMemberService.HttpApi.csproj" />
+        <Project Path="src/LibraryMemberService.HttpApi.Client/LibraryMemberService.HttpApi.Client.csproj" />
+        <Project Path="src/LibraryMemberService.HttpApi.Host/LibraryMemberService.HttpApi.Host.csproj" />
+        <Project Path="src/LibraryMemberService.DbMigrator/LibraryMemberService.DbMigrator.csproj" />
+    </Folder>
+    <Folder Name="/test/">
+        <Project Path="test/LibraryMemberService.Application.Tests/LibraryMemberService.Application.Tests.csproj" />
+        <Project Path="test/LibraryMemberService.EntityFrameworkCore.Tests/LibraryMemberService.EntityFrameworkCore.Tests.csproj" />
+        <Project Path="test/LibraryMemberService.TestBase/LibraryMemberService.TestBase.csproj" />
+        <Project Path="test/LibraryMemberService.Domain.Tests/LibraryMemberService.Domain.Tests.csproj" />
+        <Project Path="test/LibraryMemberService.HttpApi.Client.ConsoleTestApp/LibraryMemberService.HttpApi.Client.ConsoleTestApp.csproj" />
+    </Folder>
+</Solution>

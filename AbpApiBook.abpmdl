@@ -1,0 +1,114 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "5.7.0",
+      "isInstalled": true,
+      "creationTime": "10/19/2026 15:36:47 +00:00"
+    },
+    "Volo.Abp.Account": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/19/2026 15:36:47 +00:00"
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/19/2026 15:36:47 +00:00"
+    },
+    "Volo.Abp.Identity": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/19/2026 15:36:47 +00:00"
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/19/2026 15:36:47 +00:00"
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/19/2026 15:36:47 +00:00"
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/19/2026 15:36:47 +00:00"
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/19/2026 15:36:47 +00:00"
+    },
+    "Volo.Abp.BlobStoring.Database": {
+      "version": "10.7.0",
+      "isInstalled": true,
+      "creationTime": "10/19/2026 15:36:47 +00:00"
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "AbpApiBook.Application": {
+      "path": "src/AbpApiBook.Application/AbpApiBook.Application.abppkg",
+      "folder": "src"
+    },
+    "AbpApiBook.Application.Tests": {
+      "path": "test/AbpApiBook.Application.Tests/AbpApiBook.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "AbpApiBook.Domain.Shared": {
+      "path": "src/AbpApiBook.Domain.Shared/AbpApiBook.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "AbpApiBook.Application.Contracts": {
+      "path": "src/AbpApiBook.Application.Contracts/AbpApiBook.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "AbpApiBook.HttpApi": {
+      "path": "src/AbpApiBook.HttpApi/AbpApiBook.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "AbpApiBook.HttpApi.Client": {
+      "path": "src/AbpApiBook.HttpApi.Client/AbpApiBook.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "AbpApiBook.EntityFrameworkCore.Tests": {
+      "path": "test/AbpApiBook.EntityFrameworkCore.Tests/AbpApiBook.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "AbpApiBook.EntityFrameworkCore": {
+      "path": "src/AbpApiBook.EntityFrameworkCore/AbpApiBook.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "AbpApiBook.TestBase": {
+      "path": "test/AbpApiBook.TestBase/AbpApiBook.TestBase.abppkg",
+      "folder": "test"
+    },
+    "AbpApiBook.Domain.Tests": {
+      "path": "test/AbpApiBook.Domain.Tests/AbpApiBook.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "AbpApiBook.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/AbpApiBook.HttpApi.Client.ConsoleTestApp/AbpApiBook.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "AbpApiBook.DbMigrator": {
+      "path": "src/AbpApiBook.DbMigrator/AbpApiBook.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "AbpApiBook.HttpApi.Host": {
+      "path": "src/AbpApiBook.HttpApi.Host/AbpApiBook.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "AbpApiBook.Domain": {
+      "path": "src/AbpApiBook.Domain/AbpApiBook.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}

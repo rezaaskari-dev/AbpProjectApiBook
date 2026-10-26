@@ -1,0 +1,34 @@
+<Solution>
+    <Folder Name="/BookService/">
+        <Project Path="src/AbpApiBook.Application.Contracts/AbpApiBook.Application.Contracts.csproj" />
+        <Project Path="src/AbpApiBook.Application/AbpApiBook.Application.csproj" />
+        <Project Path="src/AbpApiBook.DbMigrator/AbpApiBook.DbMigrator.csproj" />
+        <Project Path="src/AbpApiBook.Domain.Shared/AbpApiBook.Domain.Shared.csproj" />
+        <Project Path="src/AbpApiBook.Domain/AbpApiBook.Domain.csproj" />
+        <Project Path="src/AbpApiBook.EntityFrameworkCore/AbpApiBook.EntityFrameworkCore.csproj" />
+        <Project Path="src/AbpApiBook.HttpApi.Client/AbpApiBook.HttpApi.Client.csproj" />
+        <Project Path="src/AbpApiBook.HttpApi.Host/AbpApiBook.HttpApi.Host.csproj" />
+        <Project Path="src/AbpApiBook.HttpApi/AbpApiBook.HttpApi.csproj" />
+    </Folder>
+    <Folder Name="/MemberService/" />
+    <Folder Name="/MemberService/src/">
+        <Project Path="LibraryMemberService/src/LibraryMemberService.Application.Contracts/LibraryMemberService.Application.Contracts.csproj" />
+        <Project Path="LibraryMemberService/src/LibraryMemberService.Application/LibraryMemberService.Application.csproj" />
+        <Project Path="LibraryMemberService/src/LibraryMemberService.DbMigrator/LibraryMemberService.DbMigrator.csproj" />
+        <Project Path="LibraryMemberService/src/LibraryMemberService.Domain.Shared/LibraryMemberService.Domain.Shared.csproj" />
+        <Project Path="LibraryMemberService/src/LibraryMemberService.Domain/LibraryMemberService.Domain.csproj" />
+        <Project Path="LibraryMemberService/src/LibraryMemberService.EntityFrameworkCore/LibraryMemberService.EntityFrameworkCore.csproj" />
+        <Project Path="LibraryMemberService/src/LibraryMemberService.HttpApi.Client/LibraryMemberService.HttpApi.Client.csproj" />
+        <Project Path="LibraryMemberService/src/LibraryMemberService.HttpApi.Host/LibraryMemberService.HttpApi.Host.csproj" />
+        <Project Path="LibraryMemberService/src/LibraryMemberService.HttpApi/LibraryMemberService.HttpApi.csproj" />
+    </Folder>
+    <Folder Name="/test/">
+        <Project Path="test/AbpApiBook.Application.Tests/AbpApiBook.Application.Tests.csproj" />
+        <Project Path="test/AbpApiBook.Domain.Tests/AbpApiBook.Domain.Tests.csproj" />
+        <Project Path="test/AbpApiBook.EntityFrameworkCore.Tests/AbpApiBook.EntityFrameworkCore.Tests.csproj" />
+        <Project Path="test/AbpApiBook.HttpApi.Client.ConsoleTestApp/AbpApiBook.HttpApi.Client.ConsoleTestApp.csproj" />
+        <Project Path="test/AbpApiBook.TestBase/AbpApiBook.TestBase.csproj" />
+    </Folder>
+    <Project Path="Gateway/Gateway.csproj" Id="faa14947-0187-4351-bb46-bc05ca0befba" />
+    <Project Path="LibraryMessaging.Contracts/LibraryMessaging.Contracts.csproj" Id="e68c1a97-1b85-4c4c-84f0-d2f3cbf7ad21" />
+</Solution>
