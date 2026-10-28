@@ -13,4 +13,12 @@
     <PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="E:\Desktop\ABP\AbpApiBook\Gateway\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="E:\Desktop\ABP\AbpApiBook\Gateway\.editorconfig" />
+  </ItemGroup>
+
 </Project>

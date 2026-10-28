@@ -31,6 +31,12 @@
     <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="10.7.0" />
     <PackageReference Include="Volo.Abp.Swashbuckle" Version="10.7.0" />
   </ItemGroup>
+<ItemGroup>
+  <None Update="openiddict.pfx">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+  </None>
+</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="10.7.0" />
