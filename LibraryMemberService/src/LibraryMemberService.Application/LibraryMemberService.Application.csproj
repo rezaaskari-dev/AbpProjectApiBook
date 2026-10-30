@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\LibraryMessaging.Contracts\LibraryMessaging.Contracts.csproj" />
     <ProjectReference Include="..\LibraryMemberService.Domain\LibraryMemberService.Domain.csproj" />
     <ProjectReference Include="..\LibraryMemberService.Application.Contracts\LibraryMemberService.Application.Contracts.csproj" />
   </ItemGroup>

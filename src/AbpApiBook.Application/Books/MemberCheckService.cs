@@ -1,6 +1,7 @@
-﻿using LibraryMessaging.Contracts.Members;
+﻿
 using System;
 using System.Threading.Tasks;
+using LibraryMessaging.Contracts.Members;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
 
@@ -25,15 +26,19 @@ public class MemberCheckService : ITransientDependency
 
         var responseTask = _responseManager.WaitForResponseAsync(
             correlationId,
-            TimeSpan.FromSeconds(10));
+            TimeSpan.FromSeconds(15));
 
         await _eventBus.PublishAsync(
             new CheckMemberExistsEto
             {
                 MemberId = memberId,
                 CorrelationId = correlationId
-            });
+            },
+            onUnitOfWorkComplete: false,
+            useOutbox: false);
 
         return await responseTask;
     }
+
+
 }

@@ -17,6 +17,7 @@ namespace AbpApiBook.Books
 
         Task DeleteAsync(Guid id);
 
-        Task TestRabbitAsync(Guid memberId);
+        Task<MemberExistsResultDto> CheckMemberExistsAsync(Guid memberId);
+        //Task TestRabbitAsync(Guid memberId);
     }
 }

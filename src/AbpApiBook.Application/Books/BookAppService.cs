@@ -13,11 +13,13 @@ namespace AbpApiBook.Books
     public class BookAppService : ApplicationService, IBookAppService
     {
         private readonly IRepository<Book, Guid> _bookRepository;
-        private readonly TestRabbitPublisher _testRabbitPublisher;
-        public BookAppService(IRepository<Book, Guid> bookRepository, TestRabbitPublisher testRabbitPublisher)
+        private readonly MemberCheckService _memberCheckService;
+        public BookAppService(
+     IRepository<Book, Guid> bookRepository,
+     MemberCheckService memberCheckService)
         {
             _bookRepository = bookRepository;
-            _testRabbitPublisher = testRabbitPublisher;
+            _memberCheckService = memberCheckService;
         }
 
 
@@ -28,7 +30,7 @@ namespace AbpApiBook.Books
 
             return books.Select(book => MapToDto(book)).ToList();
         }
-     
+
 
         public async Task<BookDto> GetAsync(Guid id)
         {
@@ -84,9 +86,23 @@ namespace AbpApiBook.Books
             };
         }
 
-        public async Task TestRabbitAsync(Guid memberId)
+        //public async Task TestRabbitAsync(Guid memberId)
+        //{
+        //    await _testRabbitPublisher.PublishAsync(memberId);
+        //}
+
+        public async Task<MemberExistsResultDto> CheckMemberExistsAsync(Guid memberId)
         {
-            await _testRabbitPublisher.PublishAsync(memberId);
+            var exists = await _memberCheckService.CheckMemberAsync(memberId);
+
+            return new MemberExistsResultDto
+            {
+                MemberId = memberId,
+                Exists = exists
+            };
         }
+
+      
+        
     }
 }

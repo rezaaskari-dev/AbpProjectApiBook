@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\LibraryMemberService\src\LibraryMemberService.Application.Contracts\LibraryMemberService.Application.Contracts.csproj" />
     <ProjectReference Include="..\..\LibraryMessaging.Contracts\LibraryMessaging.Contracts.csproj" />
     <ProjectReference Include="..\AbpApiBook.Domain\AbpApiBook.Domain.csproj" />
     <ProjectReference Include="..\AbpApiBook.Application.Contracts\AbpApiBook.Application.Contracts.csproj" />
