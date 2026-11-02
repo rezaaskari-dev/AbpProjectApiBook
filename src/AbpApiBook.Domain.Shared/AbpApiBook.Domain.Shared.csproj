@@ -13,7 +13,6 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.11" />
     <PackageReference Include="Volo.Abp.BackgroundJobs.Domain.Shared" Version="10.7.0" />
     <PackageReference Include="Volo.Abp.AuditLogging.Domain.Shared" Version="10.7.0" />
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore.SqlServer" Version="10.7.0" />
     <PackageReference Include="Volo.Abp.FeatureManagement.Domain.Shared" Version="10.7.0" />
     <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Shared" Version="10.7.0" />
     <PackageReference Include="Volo.Abp.SettingManagement.Domain.Shared" Version="10.7.0" />

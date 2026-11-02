@@ -25,8 +25,6 @@ namespace AbpApiBook.Migrations
                 .HasAnnotation("ProductVersion", "10.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
             modelBuilder.Entity("AbpApiBook.Entities.Book", b =>
                 {
                     b.Property<Guid>("Id")

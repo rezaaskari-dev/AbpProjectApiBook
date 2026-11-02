@@ -17,7 +17,7 @@ public class AbpApiBookDbContextFactory : IDesignTimeDbContextFactory<AbpApiBook
         AbpApiBookEfCoreEntityExtensionMappings.Configure();
 
         var builder = new DbContextOptionsBuilder<AbpApiBookDbContext>()
-            .UseSqlServer(configuration.GetConnectionString("Default"));
+            .UseNpgsql(configuration.GetConnectionString("Default"));
         
         return new AbpApiBookDbContext(builder.Options);
     }

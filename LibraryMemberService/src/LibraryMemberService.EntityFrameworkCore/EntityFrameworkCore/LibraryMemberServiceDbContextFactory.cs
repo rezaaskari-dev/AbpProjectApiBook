@@ -17,7 +17,7 @@ public class LibraryMemberServiceDbContextFactory : IDesignTimeDbContextFactory<
         LibraryMemberServiceEfCoreEntityExtensionMappings.Configure();
 
         var builder = new DbContextOptionsBuilder<LibraryMemberServiceDbContext>()
-            .UseSqlServer(configuration.GetConnectionString("Default"));
+            .UseNpgsql(configuration.GetConnectionString("Default"));
         
         return new LibraryMemberServiceDbContext(builder.Options);
     }
