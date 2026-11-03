@@ -1,32 +1,28 @@
 ﻿using LibraryMessaging.Contracts.Members;
+using Rebus.Bus;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
-using Volo.Abp.EventBus.Distributed;
 
-namespace AbpApiBook.Books
+namespace AbpApiBook.Books;
+
+public class TestRebusPublisher : ITransientDependency
 {
-    public class TestRabbitPublisher : ITransientDependency
+    private readonly IBus _bus;
+
+    public TestRebusPublisher(IBus bus)
     {
-        private readonly IDistributedEventBus _eventBus;
+        _bus = bus;
+    }
 
-        public TestRabbitPublisher(IDistributedEventBus eventBus)
+    public async Task PublishAsync(Guid memberId)
+    {
+        var correlationId = Guid.NewGuid().ToString();
+
+        await _bus.Send(new CheckMemberExistsEto
         {
-            _eventBus = eventBus;
-        }
-
-        public async Task PublishAsync(Guid memberId)
-        {
-            var correlationId = Guid.NewGuid().ToString();
-
-            await _eventBus.PublishAsync(
-                new CheckMemberExistsEto
-                {
-                    MemberId = memberId,
-                    CorrelationId = correlationId
-                });
-        }
+            MemberId = memberId,
+            CorrelationId = correlationId
+        });
     }
 }

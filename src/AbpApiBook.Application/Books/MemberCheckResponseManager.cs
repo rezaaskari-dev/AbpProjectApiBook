@@ -33,15 +33,17 @@ public class MemberCheckResponseManager : ISingletonDependency
                 $"Duplicate CorrelationId: {correlationId}");
         }
 
-        _logger.LogWarning(
+        _logger.LogInformation(
             "WAIT STARTED. CorrelationId: {CorrelationId}",
             correlationId);
 
         try
         {
+            var timeoutTask = Task.Delay(timeout);
+
             var completedTask = await Task.WhenAny(
                 tcs.Task,
-                Task.Delay(timeout));
+                timeoutTask);
 
             if (completedTask != tcs.Task)
             {
@@ -50,12 +52,12 @@ public class MemberCheckResponseManager : ISingletonDependency
                     correlationId);
 
                 throw new TimeoutException(
-                    $"No response received for {correlationId}");
+                    $"No response received for CorrelationId: {correlationId}");
             }
 
             var result = await tcs.Task;
 
-            _logger.LogWarning(
+            _logger.LogInformation(
                 "WAIT COMPLETED. CorrelationId: {CorrelationId}, Exists: {Exists}",
                 correlationId,
                 result);
@@ -65,6 +67,10 @@ public class MemberCheckResponseManager : ISingletonDependency
         finally
         {
             _pendingRequests.TryRemove(correlationId, out _);
+
+            _logger.LogInformation(
+                "WAIT CLEANED UP. CorrelationId: {CorrelationId}",
+                correlationId);
         }
     }
 
@@ -72,25 +78,27 @@ public class MemberCheckResponseManager : ISingletonDependency
         string correlationId,
         bool exists)
     {
-        _logger.LogWarning(
+        _logger.LogInformation(
             "RESPONSE RECEIVED. CorrelationId: {CorrelationId}, Exists: {Exists}",
             correlationId,
             exists);
 
-        if (_pendingRequests.TryGetValue(correlationId, out var tcs))
+        if (!_pendingRequests.TryGetValue(
+                correlationId,
+                out var tcs))
         {
-            var completed = tcs.TrySetResult(exists);
-
             _logger.LogWarning(
-                "TRY SET RESULT: {Completed}, CorrelationId: {CorrelationId}",
-                completed,
+                "NO PENDING REQUEST FOUND. CorrelationId: {CorrelationId}",
                 correlationId);
+
+            return;
         }
-        else
-        {
-            _logger.LogError(
-                "NO PENDING REQUEST FOUND! CorrelationId: {CorrelationId}",
-                correlationId);
-        }
+
+        var completed = tcs.TrySetResult(exists);
+
+        _logger.LogInformation(
+            "TRY SET RESULT: {Completed}, CorrelationId: {CorrelationId}",
+            completed,
+            correlationId);
     }
 }

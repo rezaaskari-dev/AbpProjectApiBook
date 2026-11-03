@@ -2,56 +2,85 @@
 using System.Threading.Tasks;
 using LibraryMessaging.Contracts.Members;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Rebus.Bus;
+using Rebus.Handlers;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Uow;
 
 namespace LibraryMemberService.Members;
 
 public class CheckMemberExistsHandler :
-    IDistributedEventHandler<CheckMemberExistsEto>,
+    IHandleMessages<CheckMemberExistsEto>,
     ITransientDependency
 {
     private readonly IServiceScopeFactory _scopeFactory;
-    private readonly IDistributedEventBus _eventBus;
+    private readonly IBus _bus;
+    private readonly ILogger<CheckMemberExistsHandler> _logger;
 
     public CheckMemberExistsHandler(
         IServiceScopeFactory scopeFactory,
-        IDistributedEventBus eventBus)
+        IBus bus,
+        ILogger<CheckMemberExistsHandler> logger)
     {
         _scopeFactory = scopeFactory;
-        _eventBus = eventBus;
+        _bus = bus;
+        _logger = logger;
     }
 
-    public async Task HandleEventAsync(CheckMemberExistsEto eventData)
+    public async Task Handle(CheckMemberExistsEto message)
     {
-        bool exists;
+        _logger.LogInformation(
+            "Received member check request. MemberId: {MemberId}, CorrelationId: {CorrelationId}",
+            message.MemberId, message.CorrelationId);
 
-        using (var scope = _scopeFactory.CreateScope())
+        try
         {
-            var uowManager = scope.ServiceProvider
-                .GetRequiredService<IUnitOfWorkManager>();
+            bool exists;
 
-            using (var uow = uowManager.Begin(
-                requiresNew: true,
-                isTransactional: false))
+            using (var scope = _scopeFactory.CreateScope())
             {
-                var memberRepository = scope.ServiceProvider
-                    .GetRequiredService<IRepository<Member, Guid>>();
+                var uowManager = scope.ServiceProvider
+                    .GetRequiredService<IUnitOfWorkManager>();
 
-                exists = await memberRepository.AnyAsync(
-                    member => member.Id == eventData.MemberId);
+                using (var uow = uowManager.Begin(
+                    requiresNew: true,
+                    isTransactional: false))
+                {
+                    var memberRepository = scope.ServiceProvider
+                        .GetRequiredService<IRepository<Member, Guid>>();
 
-                await uow.CompleteAsync();
+                    exists = await memberRepository.AnyAsync(
+                        member => member.Id == message.MemberId);
+
+                    await uow.CompleteAsync();
+                }
             }
-        }
 
-        await _eventBus.PublishAsync(new CheckMemberExistsResultEto
+            _logger.LogInformation(
+                "Member database check completed. MemberId: {MemberId}, Exists: {Exists}, CorrelationId: {CorrelationId}",
+                message.MemberId, exists, message.CorrelationId);
+
+            await _bus.Send(new CheckMemberExistsResultEto
+            {
+                CorrelationId = message.CorrelationId,
+                MemberId = message.MemberId,
+                Exists = exists
+            });
+
+            _logger.LogInformation(
+                "Member check result sent to Kafka. CorrelationId: {CorrelationId}",
+                message.CorrelationId);
+        }
+        catch (Exception ex)
         {
-            CorrelationId = eventData.CorrelationId,
-            MemberId = eventData.MemberId,
-            Exists = exists
-        });
+            _logger.LogError(
+                ex,
+                "Error processing member check request. MemberId: {MemberId}, CorrelationId: {CorrelationId}",
+                message.MemberId, message.CorrelationId);
+
+            throw;
+        }
     }
 }

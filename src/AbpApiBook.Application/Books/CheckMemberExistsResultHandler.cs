@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 using LibraryMessaging.Contracts.Members;
 using Microsoft.Extensions.Logging;
+using Rebus.Handlers;
 using Volo.Abp.DependencyInjection;
-using Volo.Abp.EventBus.Distributed;
 
 namespace AbpApiBook.Books;
 
 public class CheckMemberExistsResultHandler :
-    IDistributedEventHandler<CheckMemberExistsResultEto>,
+    IHandleMessages<CheckMemberExistsResultEto>,
     ITransientDependency
 {
     private readonly MemberCheckResponseManager _responseManager;
@@ -21,17 +21,21 @@ public class CheckMemberExistsResultHandler :
         _logger = logger;
     }
 
-    public Task HandleEventAsync(CheckMemberExistsResultEto eventData)
+    public Task Handle(CheckMemberExistsResultEto message)
     {
-        _logger.LogWarning(
-            "RESULT HANDLER EXECUTED. CorrelationId: {CorrelationId}, MemberId: {MemberId}, Exists: {Exists}",
-            eventData.CorrelationId,
-            eventData.MemberId,
-            eventData.Exists);
+        _logger.LogInformation(
+            "Received member check result from Kafka. MemberId: {MemberId}, Exists: {Exists}, CorrelationId: {CorrelationId}",
+            message.MemberId,
+            message.Exists,
+            message.CorrelationId);
 
         _responseManager.SetResponse(
-            eventData.CorrelationId,
-            eventData.Exists);
+            message.CorrelationId,
+            message.Exists);
+
+        _logger.LogInformation(
+            "Member check response delivered to waiting request. CorrelationId: {CorrelationId}",
+            message.CorrelationId);
 
         return Task.CompletedTask;
     }

@@ -1,6 +1,8 @@
 using LibraryMemberService.EntityFrameworkCore;
 using LibraryMemberService.HealthChecks;
+using LibraryMemberService.Members;
 using LibraryMemberService.MultiTenancy;
+using LibraryMessaging.Contracts.Members;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
@@ -13,6 +15,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi;
 using OpenIddict.Server.AspNetCore;
 using OpenIddict.Validation.AspNetCore;
+using Rebus.Config;
+using Rebus.Handlers;
+using Rebus.Kafka;
+using Rebus.Routing.TypeBased;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,7 +39,6 @@ using Volo.Abp.Autofac;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
-using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.OpenIddict;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.Studio;
@@ -54,7 +59,6 @@ namespace LibraryMemberService;
     typeof(LibraryMemberServiceEntityFrameworkCoreModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpSwashbuckleModule),
-    typeof(AbpEventBusRabbitMqModule),
     typeof(AbpAspNetCoreSerilogModule)
     )]
 public class LibraryMemberServiceHttpApiHostModule : AbpModule
@@ -97,6 +101,18 @@ public class LibraryMemberServiceHttpApiHostModule : AbpModule
         {
             options.CheckLibs = false;
         });
+        context.Services.AddRebus(configure => configure
+    .Transport(t => t.UseKafka(
+        "localhost:9092",
+        "member-service",
+        "member-service-group"))
+    .Routing(r => r.TypeBased()
+        .Map<CheckMemberExistsResultEto>("book-service")
+    )
+);
+
+        context.Services.AutoRegisterHandlersFromAssemblyOf<
+            CheckMemberExistsHandler>();
 
         if (!configuration.GetValue<bool>("App:DisablePII"))
         {

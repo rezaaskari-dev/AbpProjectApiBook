@@ -1,6 +1,8 @@
+using AbpApiBook.Books;
 using AbpApiBook.EntityFrameworkCore;
 using AbpApiBook.HealthChecks;
 using AbpApiBook.MultiTenancy;
+using LibraryMessaging.Contracts.Members;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
@@ -13,6 +15,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi;
 using OpenIddict.Server.AspNetCore;
 using OpenIddict.Validation.AspNetCore;
+using Rebus.Config;
+using Rebus.Handlers;
+using Rebus.Kafka;
+using Rebus.Routing.TypeBased;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +38,6 @@ using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
-using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.Modularity;
 using Volo.Abp.OpenIddict;
 using Volo.Abp.Security.Claims;
@@ -54,9 +59,8 @@ namespace AbpApiBook;
     typeof(AbpApiBookEntityFrameworkCoreModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpSwashbuckleModule),
-    typeof(AbpEventBusRabbitMqModule),
     typeof(AbpAspNetCoreSerilogModule)
-    )]
+)]
 public class AbpApiBookHttpApiHostModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -83,8 +87,12 @@ public class AbpApiBookHttpApiHostModule : AbpModule
 
             PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
             {
-                serverBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", configuration["AuthServer:CertificatePassPhrase"]!);
-                serverBuilder.SetIssuer(new Uri(configuration["AuthServer:Authority"]!));
+                serverBuilder.AddProductionEncryptionAndSigningCertificate(
+                    "openiddict.pfx",
+                    configuration["AuthServer:CertificatePassPhrase"]!);
+
+                serverBuilder.SetIssuer(
+                    new Uri(configuration["AuthServer:Authority"]!));
             });
         }
     }
@@ -93,10 +101,41 @@ public class AbpApiBookHttpApiHostModule : AbpModule
     {
         var configuration = context.Services.GetConfiguration();
         var hostingEnvironment = context.Services.GetHostingEnvironment();
+
         Configure<AbpMvcLibsOptions>(options =>
         {
             options.CheckLibs = false;
         });
+
+        var bootstrapServers = configuration["Kafka:BootstrapServers"]
+            ?? throw new InvalidOperationException(
+                "Kafka BootstrapServers is not configured.");
+
+        var inputTopic = configuration["Kafka:InputTopic"]
+            ?? throw new InvalidOperationException(
+                "Kafka InputTopic is not configured.");
+
+        var destinationTopic = configuration["Kafka:DestinationTopic"]
+            ?? throw new InvalidOperationException(
+                "Kafka DestinationTopic is not configured.");
+
+        var groupId = configuration["Kafka:GroupId"]
+            ?? throw new InvalidOperationException(
+                "Kafka GroupId is not configured.");
+
+        // Rebus / Kafka
+        context.Services.AddRebus(configure => configure
+            .Transport(t => t.UseKafka(
+                bootstrapServers,
+                inputTopic,
+                groupId))
+            .Routing(r => r.TypeBased()
+                .Map<CheckMemberExistsEto>(destinationTopic)
+            )
+        );
+
+        context.Services.AutoRegisterHandlersFromAssemblyOf<
+            CheckMemberExistsResultHandler>();
 
         if (!configuration.GetValue<bool>("App:DisablePII"))
         {
@@ -110,7 +149,7 @@ public class AbpApiBookHttpApiHostModule : AbpModule
             {
                 options.DisableTransportSecurityRequirement = true;
             });
-            
+
             Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedProto;
@@ -135,6 +174,7 @@ public class AbpApiBookHttpApiHostModule : AbpModule
         ConfigureVirtualFileSystem(context);
         ConfigureCors(context, configuration);
     }
+
 
     private void ConfigureStudio(IHostEnvironment hostingEnvironment)
     {
