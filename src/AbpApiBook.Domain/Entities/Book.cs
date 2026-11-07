@@ -10,6 +10,8 @@ namespace AbpApiBook.Entities
 
         public string Author { get; private set; } = string.Empty;
 
+        public string? CoverImageObjectKey { get; private set; }
+
         public int PublishedYear { get; private set; }
 
         protected Book()
@@ -24,6 +26,17 @@ namespace AbpApiBook.Entities
             : base(id)
         {
             SetDetails(title, author, publishedYear);
+        }
+
+        //MinIO
+        public void SetCoverImage(string objectKey)
+        {
+            CoverImageObjectKey = objectKey;
+        }
+
+        public void RemoveCoverImage()
+        {
+            CoverImageObjectKey = null;
         }
 
         public void Update(

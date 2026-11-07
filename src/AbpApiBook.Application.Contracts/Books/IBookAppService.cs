@@ -19,6 +19,10 @@ namespace AbpApiBook.Books
 
         Task<MemberExistsResultDto> CheckMemberExistsAsync(Guid memberId);
 
+        Task UploadBookImageAsync(
+    Guid bookId,
+    UploadBookImageDto input);
+
         //Task TestRabbitAsync(Guid memberId);
     }
 }

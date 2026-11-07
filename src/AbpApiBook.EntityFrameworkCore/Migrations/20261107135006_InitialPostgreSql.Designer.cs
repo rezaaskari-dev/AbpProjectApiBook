@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace AbpApiBook.Migrations
 {
     [DbContext(typeof(AbpApiBookDbContext))]
-    [Migration("20261102101033_InitialPostgreSql")]
+    [Migration("20261107135006_InitialPostgreSql")]
     partial class InitialPostgreSql
     {
         /// <inheritdoc />
@@ -43,6 +43,9 @@ namespace AbpApiBook.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("character varying(40)")
                         .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<string>("CoverImageObjectKey")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp with time zone")

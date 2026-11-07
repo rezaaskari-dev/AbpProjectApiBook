@@ -1,4 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AbpApiBook.MinIO;
+using AbpApiBook.MinIO.AbpApiBook.MinIO;
+using Elastic.Clients.Elasticsearch;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Minio;
 using Polly;
 using System;
 using Volo.Abp.Account;
@@ -27,7 +33,43 @@ public class AbpApiBookApplicationModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var configuration = context.Services.GetConfiguration();
+        context.Services.AddTransient<
+            IFileStorageService,
+            BookFileStorageService>();
 
-        
+
+        Configure<MinioOptions>(
+    context.Services.GetConfiguration()
+        .GetSection(MinioOptions.SectionName)
+);
+        context.Services.AddTransient<MinioHealthCheckService>();
+
+        context.Services.AddSingleton<IMinioClient>(serviceProvider =>
+        {
+            var options = serviceProvider
+                .GetRequiredService<IOptions<MinioOptions>>()
+                .Value;
+
+            return new MinioClient()
+                .WithEndpoint(options.Endpoint)
+                .WithCredentials(options.AccessKey, options.SecretKey)
+                .WithSSL(options.UseSSL)
+                .Build();
+        });
+        //context.Services.AddTransient<BookFileStorageService>();
+
+        context.Services.AddSingleton<ElasticsearchClient>(sp =>
+        {
+            var configuration = sp.GetRequiredService<IConfiguration>();
+
+            var url = configuration["Elasticsearch:Url"]
+                      ?? "http://localhost:9200";
+
+            var settings = new ElasticsearchClientSettings(new Uri(url));
+
+            return new ElasticsearchClient(settings);
+        });
+
+
     }
 }

@@ -13,5 +13,7 @@ namespace AbpApiBook.Books
         public string Author { get; set; }
 
         public int PublishedYear { get; set; }
+
+        public string? ImageUrl { get; set; }
     }
 }

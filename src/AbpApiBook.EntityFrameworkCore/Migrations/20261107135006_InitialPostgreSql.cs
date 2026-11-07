@@ -474,6 +474,7 @@ namespace AbpApiBook.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Title = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Author = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    CoverImageObjectKey = table.Column<string>(type: "text", nullable: true),
                     PublishedYear = table.Column<int>(type: "integer", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),

@@ -1,6 +1,8 @@
 ﻿using AbpApiBook.Entities;
+using AbpApiBook.MinIO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +16,17 @@ namespace AbpApiBook.Books
     {
         private readonly IRepository<Book, Guid> _bookRepository;
         private readonly MemberCheckService _memberCheckService;
+
+        private readonly IFileStorageService _fileStorageService;
+
         public BookAppService(
      IRepository<Book, Guid> bookRepository,
-     MemberCheckService memberCheckService)
+     MemberCheckService memberCheckService, IFileStorageService fileStorageService)
         {
             _bookRepository = bookRepository;
             _memberCheckService = memberCheckService;
+            _fileStorageService = fileStorageService;
+
         }
 
 
@@ -75,14 +82,18 @@ namespace AbpApiBook.Books
             await _bookRepository.DeleteAsync(id, autoSave: true);
         }
 
-        private static BookDto MapToDto(Book book)
+        private BookDto MapToDto(Book book)
         {
             return new BookDto
             {
                 Id = book.Id,
                 Title = book.Title,
                 Author = book.Author,
-                PublishedYear = book.PublishedYear
+                PublishedYear = book.PublishedYear,
+
+                ImageUrl = book.CoverImageObjectKey == null
+                    ? null
+                    : $"https://localhost:5001/api/app/books/{book.Id}/image"
             };
         }
 
@@ -102,7 +113,41 @@ namespace AbpApiBook.Books
             };
         }
 
-      
-        
+        public async Task UploadBookImageAsync(
+      Guid bookId,
+      UploadBookImageDto input)
+        {
+            var book = await _bookRepository.GetAsync(bookId);
+
+            if (input.File == null)
+            {
+                throw new Exception("Image file is required.");
+            }
+
+            var fileName = input.File.FileName;
+            var extension = Path.GetExtension(fileName).ToLowerInvariant();
+
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp" };
+
+            if (!allowedExtensions.Contains(extension))
+            {
+                throw new Exception("Invalid image format.");
+            }
+
+            var objectKey = $"books/{bookId}/cover{extension}";
+
+            var stream = input.File.GetStream();
+
+            await _fileStorageService.UploadAsync(
+                objectKey,
+                stream,
+                input.File.ContentLength ?? stream.Length,
+                input.File.ContentType
+            );
+
+            book.SetCoverImage(objectKey);
+
+            await _bookRepository.UpdateAsync(book, autoSave: true);
+        }
     }
 }
