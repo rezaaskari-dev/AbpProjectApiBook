@@ -1,10 +1,11 @@
 ﻿
 using System;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace AbpApiBook.Entities
 {
-    public class Book : AuditedAggregateRoot<Guid>
+    public class Book : AggregateRoot<Guid>
     {
         public string Title { get; private set; } = string.Empty;
 
