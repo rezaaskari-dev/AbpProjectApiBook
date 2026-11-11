@@ -41,7 +41,7 @@ public class MemberCheckService : ITransientDependency
                 "Sending member check message to Kafka. CorrelationId: {CorrelationId}",
                 correlationId);
 
-            await _bus.Send(new CheckMemberExistsEto
+            await _bus.Send(new CheckMemberExistsRequest
             {
                 MemberId = memberId,
                 CorrelationId = correlationId

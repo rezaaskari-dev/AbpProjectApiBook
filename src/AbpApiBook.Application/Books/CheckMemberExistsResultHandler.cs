@@ -7,7 +7,7 @@ using Volo.Abp.DependencyInjection;
 namespace AbpApiBook.Books;
 
 public class CheckMemberExistsResultHandler :
-    IHandleMessages<CheckMemberExistsResultEto>,
+    IHandleMessages<CheckMemberExistsResponse>,
     ITransientDependency
 {
     private readonly MemberCheckResponseManager _responseManager;
@@ -21,7 +21,7 @@ public class CheckMemberExistsResultHandler :
         _logger = logger;
     }
 
-    public Task Handle(CheckMemberExistsResultEto message)
+    public Task Handle(CheckMemberExistsResponse message)
     {
         _logger.LogInformation(
             "Received member check result from Kafka. MemberId: {MemberId}, Exists: {Exists}, CorrelationId: {CorrelationId}",

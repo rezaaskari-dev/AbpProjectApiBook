@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Volo.Abp.EventBus;
 
 namespace LibraryMessaging.Contracts.Members
 {
-    [EventName("LibraryMemberService.CheckMemberExists")]
-    public class CheckMemberExistsEto
+    public class CheckMemberExistsRequest
     {
         public Guid MemberId { get; set; }
 

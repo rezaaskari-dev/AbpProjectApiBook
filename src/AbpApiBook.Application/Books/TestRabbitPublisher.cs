@@ -19,7 +19,7 @@ public class TestRebusPublisher : ITransientDependency
     {
         var correlationId = Guid.NewGuid().ToString();
 
-        await _bus.Send(new CheckMemberExistsEto
+        await _bus.Send(new CheckMemberExistsRequest
         {
             MemberId = memberId,
             CorrelationId = correlationId

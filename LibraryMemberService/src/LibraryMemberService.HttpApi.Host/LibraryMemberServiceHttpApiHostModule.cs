@@ -107,7 +107,7 @@ public class LibraryMemberServiceHttpApiHostModule : AbpModule
         "member-service",
         "member-service-group"))
     .Routing(r => r.TypeBased()
-        .Map<CheckMemberExistsResultEto>("book-service")
+        .Map<CheckMemberExistsResponse>("book-service")
     )
 );
 

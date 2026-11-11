@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Volo.Abp.EventBus;
 
 namespace LibraryMessaging.Contracts.Members
 {
-    [EventName("LibraryMemberService.CheckMemberExistsResult")]
-    public class CheckMemberExistsResultEto
+    public class CheckMemberExistsResponse
     {
         public string CorrelationId { get; set; } = string.Empty;
 

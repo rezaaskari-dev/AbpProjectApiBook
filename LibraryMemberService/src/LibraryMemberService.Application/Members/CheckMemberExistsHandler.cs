@@ -12,7 +12,7 @@ using Volo.Abp.Uow;
 namespace LibraryMemberService.Members;
 
 public class CheckMemberExistsHandler :
-    IHandleMessages<CheckMemberExistsEto>,
+    IHandleMessages<CheckMemberExistsRequest>,
     ITransientDependency
 {
     private readonly IServiceScopeFactory _scopeFactory;
@@ -29,7 +29,7 @@ public class CheckMemberExistsHandler :
         _logger = logger;
     }
 
-    public async Task Handle(CheckMemberExistsEto message)
+    public async Task Handle(CheckMemberExistsRequest message)
     {
         _logger.LogInformation(
             "Received member check request. MemberId: {MemberId}, CorrelationId: {CorrelationId}",
@@ -62,7 +62,7 @@ public class CheckMemberExistsHandler :
                 "Member database check completed. MemberId: {MemberId}, Exists: {Exists}, CorrelationId: {CorrelationId}",
                 message.MemberId, exists, message.CorrelationId);
 
-            await _bus.Send(new CheckMemberExistsResultEto
+            await _bus.Send(new CheckMemberExistsResponse
             {
                 CorrelationId = message.CorrelationId,
                 MemberId = message.MemberId,

@@ -130,7 +130,7 @@ public class AbpApiBookHttpApiHostModule : AbpModule
                 inputTopic,
                 groupId))
             .Routing(r => r.TypeBased()
-                .Map<CheckMemberExistsEto>(destinationTopic)
+                .Map<CheckMemberExistsRequest>(destinationTopic)
             )
         );
 
