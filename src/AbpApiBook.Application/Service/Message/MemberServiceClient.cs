@@ -5,18 +5,18 @@ using Microsoft.Extensions.Logging;
 using Rebus.Bus;
 using Volo.Abp.DependencyInjection;
 
-namespace AbpApiBook.Books;
+namespace AbpApiBook.Books.Message;
 
-public class MemberCheckService : ITransientDependency
+public class MemberServiceClient : ITransientDependency
 {
     private readonly IBus _bus;
     private readonly MemberCheckResponseManager _responseManager;
-    private readonly ILogger<MemberCheckService> _logger;
+    private readonly ILogger<MemberServiceClient> _logger;
 
-    public MemberCheckService(
+    public MemberServiceClient(
         IBus bus,
         MemberCheckResponseManager responseManager,
-        ILogger<MemberCheckService> logger)
+        ILogger<MemberServiceClient> logger)
     {
         _bus = bus;
         _responseManager = responseManager;

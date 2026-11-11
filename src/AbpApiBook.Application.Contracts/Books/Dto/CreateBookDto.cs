@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AbpApiBook.Books
+namespace AbpApiBook.Books.Dto
 {
     public class CreateBookDto
     {

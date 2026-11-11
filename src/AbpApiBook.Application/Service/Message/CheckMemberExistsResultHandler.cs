@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Rebus.Handlers;
 using Volo.Abp.DependencyInjection;
 
-namespace AbpApiBook.Books;
+namespace AbpApiBook.Books.Message;
 
 public class CheckMemberExistsResultHandler :
     IHandleMessages<CheckMemberExistsResponse>,

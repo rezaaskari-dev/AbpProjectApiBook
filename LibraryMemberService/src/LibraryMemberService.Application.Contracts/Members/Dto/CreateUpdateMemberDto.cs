@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LibraryMemberService.Members;
+namespace LibraryMemberService.Members.Dto;
 
 public class CreateUpdateMemberDto
 {

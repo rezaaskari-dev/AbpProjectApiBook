@@ -1,4 +1,5 @@
-﻿ using System;
+﻿using LibraryMemberService.Members.Dto;
+using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;

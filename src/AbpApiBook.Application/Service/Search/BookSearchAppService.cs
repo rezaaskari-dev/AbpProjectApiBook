@@ -1,4 +1,4 @@
-﻿using AbpApiBook.Books;
+﻿using AbpApiBook.Books.Dto.Search;
 using Elastic.Clients.Elasticsearch;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
-namespace AbpApiBook.Books;
+namespace AbpApiBook.Service.Search;
 
 public class BookSearchAppService : ApplicationService
 {

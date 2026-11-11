@@ -1,5 +1,4 @@
-﻿
-using LibraryMemberService.Members;
+﻿using LibraryMemberService.Members.Dto;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

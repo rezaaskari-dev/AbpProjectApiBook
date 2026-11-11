@@ -1,4 +1,4 @@
-using AbpApiBook.Books;
+using AbpApiBook.Books.Message;
 using AbpApiBook.EntityFrameworkCore;
 using AbpApiBook.HealthChecks;
 using AbpApiBook.MultiTenancy;

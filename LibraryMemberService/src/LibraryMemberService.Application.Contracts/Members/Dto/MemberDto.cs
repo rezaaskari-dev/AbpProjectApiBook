@@ -1,7 +1,7 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
 
-namespace LibraryMemberService.Members;
+namespace LibraryMemberService.Members.Dto;
 
 public class MemberDto : EntityDto<Guid>
 {

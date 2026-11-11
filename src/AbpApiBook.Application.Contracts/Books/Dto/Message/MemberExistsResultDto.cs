@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AbpApiBook.Books;
+namespace AbpApiBook.Books.Dto.Message;
 
 public class MemberExistsResultDto
 {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.DependencyInjection;
 
-namespace AbpApiBook.Books;
+namespace AbpApiBook.Books.Message;
 
 public class MemberCheckResponseManager : ISingletonDependency
 {

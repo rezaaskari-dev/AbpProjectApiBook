@@ -1,6 +1,6 @@
 ﻿using Volo.Abp.Content;
 
-namespace AbpApiBook.Books
+namespace AbpApiBook.Books.Dto.MinIO
 {
     public class UploadBookImageDto
     {

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AbpApiBook.Books.Dto;
+using AbpApiBook.Books.Dto.Message;
+using AbpApiBook.Books.Dto.MinIO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +22,7 @@ namespace AbpApiBook.Books
 
         Task<MemberExistsResultDto> CheckMemberExistsAsync(Guid memberId);
 
-        Task UploadBookImageAsync(
-    Guid bookId,
-    UploadBookImageDto input);
+        Task UploadBookImageAsync(Guid bookId,UploadBookImageDto input);
 
         //Task TestRabbitAsync(Guid memberId);
     }

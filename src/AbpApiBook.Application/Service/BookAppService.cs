@@ -1,4 +1,8 @@
-﻿using AbpApiBook.Entities;
+﻿using AbpApiBook.Books.Dto;
+using AbpApiBook.Books.Dto.Message;
+using AbpApiBook.Books.Dto.MinIO;
+using AbpApiBook.Books.Message;
+using AbpApiBook.Entities;
 using AbpApiBook.MinIO;
 using System;
 using System.Collections.Generic;
@@ -15,13 +19,13 @@ namespace AbpApiBook.Books
     public class BookAppService : ApplicationService, IBookAppService
     {
         private readonly IRepository<Book, Guid> _bookRepository;
-        private readonly MemberCheckService _memberCheckService;
+        private readonly MemberServiceClient _memberCheckService;
 
         private readonly IFileStorageService _fileStorageService;
 
         public BookAppService(
      IRepository<Book, Guid> bookRepository,
-     MemberCheckService memberCheckService, IFileStorageService fileStorageService)
+     MemberServiceClient memberCheckService, IFileStorageService fileStorageService)
         {
             _bookRepository = bookRepository;
             _memberCheckService = memberCheckService;

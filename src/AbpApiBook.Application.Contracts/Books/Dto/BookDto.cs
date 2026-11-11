@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace AbpApiBook.Books
+namespace AbpApiBook.Books.Dto
 {
     public class BookDto : EntityDto<Guid>
     {

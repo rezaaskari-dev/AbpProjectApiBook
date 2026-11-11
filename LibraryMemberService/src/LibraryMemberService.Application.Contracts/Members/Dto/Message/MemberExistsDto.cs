@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LibraryMemberService.Members
+namespace LibraryMemberService.Members.Dto.Message
 {
     public class MemberExistsDto
     {

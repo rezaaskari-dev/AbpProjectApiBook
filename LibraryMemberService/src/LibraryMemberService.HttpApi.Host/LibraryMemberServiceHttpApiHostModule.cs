@@ -1,6 +1,6 @@
 using LibraryMemberService.EntityFrameworkCore;
 using LibraryMemberService.HealthChecks;
-using LibraryMemberService.Members;
+using LibraryMemberService.Members.Message;
 using LibraryMemberService.MultiTenancy;
 using LibraryMessaging.Contracts.Members;
 using Microsoft.AspNetCore.Authentication;
